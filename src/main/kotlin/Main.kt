@@ -3,12 +3,14 @@ import java.nio.file.Path
 import java.nio.file.StandardOpenOption
 import kotlin.io.path.exists
 
-val buckets = listOf("/test/" to "test", "/train/" to "train", "/valid/" to "valid")
+//change bucketName to your Google Cloud bucket name (:
+const val bucketName = "roboflow_soccer_ball_dataset"
 const val annotationFileName = "_annotations.csv"
 const val resultFileName = "object_detection.csv"
 
+val buckets = listOf("/test/" to "test", "/train/" to "train", "/valid/" to "valid")
+
 fun main(args: Array<String>) {
-//    println("Program arguments: ${args.joinToString()}")
 
     if (args[0].isEmpty()) {
         println("File path is empty!")
@@ -47,7 +49,6 @@ fun main(args: Array<String>) {
 fun convertString(input: String, type: String): String {
     val inputList = input.split(",")
 //    TODO: bucketName from arguments
-    val bucketName = "roboflow_soccer_ball_dataset"
     return "$type,gs://$bucketName/${inputList[0]}," +
             "${inputList[3]}," +
             "${divideZeroWise(inputList[4], inputList[1])}," +
