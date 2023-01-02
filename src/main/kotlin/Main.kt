@@ -13,8 +13,7 @@ val buckets = listOf("/test/" to "test", "/train/" to "train", "/valid/" to "val
 fun main(args: Array<String>) {
 
     if (args[0].isEmpty()) {
-        println("File path is empty!")
-        return
+        throw Exception("File path is empty!")
     }
 
     val path = args[0]
@@ -31,6 +30,7 @@ fun main(args: Array<String>) {
     buckets.forEach { bucket ->
         Files.readString(Path.of(path, bucket.first, annotationFileName)).split("\n")
             .forEachIndexed { index, s ->
+//                in my case first line is a data format example
                 if (index != 0)
                     Files.writeString(
                         glImportFile,
